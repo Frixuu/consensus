@@ -28,4 +28,5 @@
     bot.add_MessageCreated (fun e -> 
         match e.Message.Content.ToLower() with
         | s when s.StartsWith("!ping") -> CommandPing e.Message
+        | s when s.StartsWith("!pong") -> CommandPong e.Message
         | _ -> Task.FromResult null :> Task)

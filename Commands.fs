@@ -5,3 +5,6 @@
 
     let CommandPing (message : DiscordMessage) =
         message.RespondAsync "Pong!" :> Task
+
+    let CommandPong (message : DiscordMessage) =
+        message.RespondAsync "Ping!" :> Task
