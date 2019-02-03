@@ -1,8 +1,8 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open System
+﻿open Bot
+open System.Threading.Tasks
 
 [<EntryPoint>]
-let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+let main _ =
+    bot.ConnectAsync() |> Async.AwaitTask |> Async.RunSynchronously
+    Task.Delay(-1) |> Async.AwaitTask |> Async.RunSynchronously
+    0
