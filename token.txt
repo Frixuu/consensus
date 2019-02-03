@@ -1,0 +1,1 @@
+Your token will go here. (Or in the CONSENSUS_DISCORD_TOKEN envvar, whatever)
