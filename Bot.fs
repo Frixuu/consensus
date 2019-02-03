@@ -3,6 +3,7 @@
     open DSharpPlus
     open System.IO
     open System.Threading.Tasks
+    open Commands
 
     let botconf = new DiscordConfiguration()
     botconf.set_AutoReconnect true
@@ -14,5 +15,5 @@
 
     bot.add_MessageCreated (fun e -> 
         match e.Message.Content.ToLower() with
-        | "!ping" -> e.Message.RespondAsync "pong!" :> Task
+        | s when s.StartsWith("!ping") -> CommandPing e.Message
         | _ -> Task.FromResult null :> Task)
