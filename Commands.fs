@@ -8,3 +8,6 @@
 
     let CommandPong (message : DiscordMessage) =
         message.RespondAsync "Ping!" :> Task
+
+    let CommandHello (message : DiscordMessage) =
+        message.RespondAsync(sprintf "Hello to you too, %s!" message.Author.Mention) :> Task

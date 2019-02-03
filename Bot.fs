@@ -29,4 +29,5 @@
         match e.Message.Content.ToLower() with
         | s when s.StartsWith("!ping") -> CommandPing e.Message
         | s when s.StartsWith("!pong") -> CommandPong e.Message
+        | s when s.StartsWith("!hi") -> CommandHello e.Message
         | _ -> Task.FromResult null :> Task)
