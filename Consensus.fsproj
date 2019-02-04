@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logging.fs" />
     <None Include="token.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -11,7 +12,6 @@
     <Compile Include="Bot.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Settings.job">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="3.2.3" />
+    <PackageReference Include="Sentry" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.6.1" />
