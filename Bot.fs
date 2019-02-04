@@ -29,11 +29,15 @@
 
     bot.add_MessageCreated (fun e -> 
         try
-            match e.Message.Content.ToLower() with
-            | s when s.StartsWith("!ping") -> CommandPing e.Message
-            | s when s.StartsWith("!pong") -> CommandPong e.Message
-            | s when s.StartsWith("!hi") -> CommandHello e.Message
-            | _ -> Task.FromResult null :> Task
+            match e.Author.IsBot with
+            | true -> Task.FromResult null :> Task
+            | _ ->
+                match e.Message.Content.ToLower() with
+                | s when s.StartsWith "!ping" -> CommandPing e.Message
+                | s when s.StartsWith "!pong" -> CommandPong e.Message
+                | s when List.exists (fun (g: string) -> s.Contains g) ["hi "; "hello"; "welcome"] &&
+                    Seq.exists ((=)bot.CurrentUser) e.MentionedUsers -> CommandHello e.Message
+                | _ -> Task.FromResult null :> Task
         with
             | ex ->
                 capture ex |> ignore
