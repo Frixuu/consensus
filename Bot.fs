@@ -33,6 +33,7 @@
             | true -> Task.FromResult null :> Task
             | _ ->
                 match e.Message.Content.ToLower() with
+                | "$cat" -> CommandRandomCat e.Message
                 | s when s.StartsWith "!ping" -> CommandPing e.Message
                 | s when s.StartsWith "!pong" -> CommandPong e.Message
                 | s when List.exists (fun (g: string) -> s.Contains g) ["hi "; "hello"; "welcome"] &&
