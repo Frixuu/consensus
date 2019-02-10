@@ -19,15 +19,21 @@
             return JsonConvert.DeserializeObject<Dictionary<string, string>> content
         }
 
-    let CommandRandomCat (message: DiscordMessage) =
+    let private respondWithKeyAsEmbed (message: DiscordMessage) url key =
         let query = async {
             message.Channel.TriggerTypingAsync() |> Async.AwaitTask |> ignore
-            let! catapi = apiToDictionary "https://aws.random.cat/meow"
+            let! api = apiToDictionary url
             let builder = new DiscordEmbedBuilder()
-            let embed = builder.WithImageUrl(catapi.["file"]).Build()
+            let embed = builder.WithImageUrl(api.[key]).Build()
             return message.RespondAsync("Here you go!", false, embed)
         }
         query |> Async.RunSynchronously :> Task
+
+    let CommandRandomCat message =
+        respondWithKeyAsEmbed message "https://aws.random.cat/meow" "file"
+
+    let CommandRandomDog message =
+        respondWithKeyAsEmbed message "https://dog.ceo/api/breeds/image/random" "message"
 
     let CommandPing (message : DiscordMessage) =
         message.RespondAsync "Pong!" :> Task
