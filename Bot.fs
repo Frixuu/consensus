@@ -16,7 +16,7 @@
     match token with
     | null ->
         try
-            log "No token in environment variables. Searching token.txt."
+            info "No token in environment variables. Searching token.txt."
             File.ReadAllText "token.txt" |> botconf.set_Token
         with
             | ex -> 

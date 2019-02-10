@@ -5,10 +5,10 @@ open System.Threading.Tasks
 [<EntryPoint>]
 let main _ =
     
-    use sentry = logger
+    use sentry = logger dsn
     try
         bot.ConnectAsync() |> Async.AwaitTask |> Async.RunSynchronously
-        log "Connected successfully to Discord servers."
+        info "Successfully connected to Discord servers."
     with
         | ex -> 
             printfn "Invalid token. Aborting now."
