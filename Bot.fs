@@ -7,12 +7,12 @@
     open System.Threading.Tasks
     open Commands
 
-    let botconf = new DiscordConfiguration()
+    let private botconf = new DiscordConfiguration()
     botconf.set_AutoReconnect true
     botconf.set_LogLevel LogLevel.Debug
     botconf.set_TokenType TokenType.Bot
 
-    let token = Environment.GetEnvironmentVariable "CONSENSUS_DISCORD_TOKEN"
+    let private token = Environment.GetEnvironmentVariable "CONSENSUS_DISCORD_TOKEN"
     match token with
     | null ->
         try
@@ -25,13 +25,17 @@
                 exit 1
     | _ -> botconf.set_Token token
 
+    /// <summary> An instance of a Discord bot. </summary>
     let bot = new DiscordClient(botconf)
 
     bot.add_MessageCreated (fun e -> 
         try
+            // Don't react to any messages sent by bots
+            // (to prevent potential infinite loops)
             match e.Author.IsBot with
             | true -> Task.FromResult null :> Task
             | _ ->
+                // Commands are case-insensitive
                 match e.Message.Content.ToLower() with
                 | "$cat" -> CommandRandomCat e.Message
                 | "$dog" -> CommandRandomDog e.Message
